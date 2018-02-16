@@ -24,10 +24,7 @@ func NewConsole(c proto.SampleServiceClient, prompt string) *ClientConsole {
 }
 
 func (c *ClientConsole) Start() error {
-	ctx, cancel := context.WithTimeout(context.TODO(), 1*time.Minute)
-	defer cancel()
 	c.usage()
-
 	for {
 		line, err := c.rl.Readline()
 		if err != nil {
@@ -35,9 +32,10 @@ func (c *ClientConsole) Start() error {
 		}
 		switch line {
 		case "p":
-			pong, _ := c.client.Ping(ctx, &proto.Empty{})
+			pong, _ := c.client.Ping(context.TODO(), &proto.Empty{})
 			log.Printf("pong: %v\n", pong.Ok)
 		case "s":
+			ctx, cancel := context.WithTimeout(context.TODO(), 10*time.Second)
 			stream, err := c.client.Items(ctx, &proto.Empty{})
 			if err != nil {
 				return err
@@ -45,15 +43,16 @@ func (c *ClientConsole) Start() error {
 			for {
 				item, err := stream.Recv()
 				if err == io.EOF {
-					fmt.Println("finish stream processing")
-					return nil
+					break
 				}
 				if err != nil {
-					fmt.Println("streaming error: ", err)
-					return err
+					fmt.Println(err)
+					break
 				}
 				log.Printf("item: %d\n", item.Id)
 			}
+			fmt.Println("finish stream processing")
+			cancel()
 		case "q":
 			fmt.Println("closing console")
 			return nil
