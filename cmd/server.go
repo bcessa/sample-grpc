@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/bcessa/sample-grpc-project/proto"
-	"github.com/bcessa/sample-grpc-project/rpc"
+	"github.com/bcessa/sample-grpc/proto"
+	"github.com/bcessa/sample-grpc/rpc"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"

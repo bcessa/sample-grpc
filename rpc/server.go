@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"context"
-	"github.com/bcessa/sample-grpc-project/proto"
+	"github.com/bcessa/sample-grpc/proto"
 	"time"
 )
 

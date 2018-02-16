@@ -3,7 +3,7 @@ package rpc
 import (
 	"context"
 	"fmt"
-	"github.com/bcessa/sample-grpc-project/proto"
+	"github.com/bcessa/sample-grpc/proto"
 	"github.com/chzyer/readline"
 	"io"
 	"log"

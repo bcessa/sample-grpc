@@ -1,6 +1,6 @@
 package main
 
-import "github.com/bcessa/sample-grpc-project/cmd"
+import "github.com/bcessa/sample-grpc/cmd"
 
 func main() {
 	cmd.Execute()
