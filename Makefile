@@ -7,6 +7,7 @@ proto: ## Compile protocol files
 	@protoc \
 	--proto_path=./vendor/github.com/gogo/protobuf \
 	--proto_path=./vendor/github.com/gogo/protobuf/protobuf \
+	--proto_path=./vendor/github.com/grpc-ecosystem/grpc-gateway \
 	--proto_path=./vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 	--proto_path=./vendor \
 	--proto_path=. \
@@ -29,6 +30,7 @@ Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
 Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
 Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
 logtostderr=true:. \
+	--swagger_out=logtostderr=true:. \
 	--descriptor_set_out=proto/service.desc \
 	proto/*.proto
 

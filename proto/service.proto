@@ -28,6 +28,20 @@ import "google/protobuf/empty.proto";
 // vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
 import "google/api/annotations.proto";
 
+// gRPC Swagger annotations
+// vendor/github.com/grpc-ecosystem/grpc-gateway
+import public "protoc-gen-swagger/options/annotations.proto";
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+  schemes: HTTPS
+  schemes: WSS
+  consumes: "application/json"
+  produces: "application/json"
+  info: {
+    title: "Sample Service"
+    version: "0.1"
+  }
+};
+
 message Pong {
   bool ok = 1;
 }
