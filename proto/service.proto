@@ -24,6 +24,10 @@ option (gogoproto.description_all) = true;
 // vendor/github.com/gogo/protobuf/protobuf
 import "google/protobuf/empty.proto";
 
+// gRPC Gateway annotations
+// vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
+import "google/api/annotations.proto";
+
 message Pong {
   bool ok = 1;
 }
@@ -33,6 +37,10 @@ message Item {
 }
 
 service SampleService {
-  rpc Ping(google.protobuf.Empty) returns (Pong);
+  rpc Ping(google.protobuf.Empty) returns (Pong) {
+    option (google.api.http) = {
+      post: "/ping"
+    };
+  }
   rpc Items(google.protobuf.Empty) returns (stream Item);
 }

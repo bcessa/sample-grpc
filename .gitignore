@@ -21,6 +21,7 @@ vendor/**
 # protobuf / RPC
 *.swagger.json
 *.pb.go
+*.pb.gw.go
 proto/*_test.go
 proto/service.desc
 

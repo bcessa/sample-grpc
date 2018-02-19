@@ -5,8 +5,9 @@ BINARY_NAME=sample-grpc
 
 proto: ## Compile protocol files
 	@protoc \
-	--proto_path=${GOPATH}/src/github.com/gogo/protobuf \
-	--proto_path=${GOPATH}/src/github.com/gogo/protobuf/protobuf \
+	--proto_path=./vendor/github.com/gogo/protobuf \
+	--proto_path=./vendor/github.com/gogo/protobuf/protobuf \
+	--proto_path=./vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 	--proto_path=./vendor \
 	--proto_path=. \
 	--gogofaster_out=\
@@ -19,6 +20,15 @@ Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
 Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
 Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
 plugins=grpc:. \
+	--grpc-gateway_out=\
+Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/field_mask.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
+logtostderr=true:. \
 	--descriptor_set_out=proto/service.desc \
 	proto/*.proto
 
