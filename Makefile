@@ -5,10 +5,21 @@ BINARY_NAME=sample-grpc
 
 proto: ## Compile protocol files
 	@protoc \
-	-I=./vendor \
-	-I=. \
-	--gogofaster_out=plugins=grpc:. \
-	-oproto/service.desc \
+	--proto_path=${GOPATH}/src/github.com/gogo/protobuf \
+	--proto_path=${GOPATH}/src/github.com/gogo/protobuf/protobuf \
+	--proto_path=./vendor \
+	--proto_path=. \
+	--gogofaster_out=\
+Mgogoproto/gogo.proto=github.com/gogo/protobuf/gogoproto,\
+Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/field_mask.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
+Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
+plugins=grpc:. \
+	--descriptor_set_out=proto/service.desc \
 	proto/*.proto
 
 build: ## Build for local system

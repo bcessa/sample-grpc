@@ -2,11 +2,10 @@ syntax = "proto3";
 package sample.proto;
 option go_package = "proto";
 
-// Vendor packages
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-
-// Extensions
+// Gogo protobuf extensions
+// vendor/github.com/gogo/protobuf/
 // https://github.com/gogo/protobuf/blob/master/extensions.md
+import "gogoproto/gogo.proto";
 option (gogoproto.gostring_all) = true;
 option (gogoproto.equal_all) = true;
 option (gogoproto.verbose_equal_all) = true;
@@ -21,7 +20,9 @@ option (gogoproto.unmarshaler_all) = true;
 option (gogoproto.compare_all) = true;
 option (gogoproto.description_all) = true;
 
-message Empty {}
+// Gogo protobuf knows types
+// vendor/github.com/gogo/protobuf/protobuf
+import "google/protobuf/empty.proto";
 
 message Pong {
   bool ok = 1;
@@ -32,6 +33,6 @@ message Item {
 }
 
 service SampleService {
-  rpc Ping(Empty) returns (Pong);
-  rpc Items(Empty) returns (stream Item);
+  rpc Ping(google.protobuf.Empty) returns (Pong);
+  rpc Items(google.protobuf.Empty) returns (stream Item);
 }

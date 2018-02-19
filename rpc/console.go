@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/bcessa/sample-grpc/proto"
 	"github.com/chzyer/readline"
+	"github.com/gogo/protobuf/types"
 	"io"
 	"log"
 	"time"
@@ -32,11 +33,11 @@ func (c *ClientConsole) Start() error {
 		}
 		switch line {
 		case "p":
-			pong, _ := c.client.Ping(context.TODO(), &proto.Empty{})
+			pong, _ := c.client.Ping(context.TODO(), &types.Empty{})
 			log.Printf("pong: %v\n", pong.Ok)
 		case "s":
 			ctx, cancel := context.WithTimeout(context.TODO(), 10*time.Second)
-			stream, err := c.client.Items(ctx, &proto.Empty{})
+			stream, err := c.client.Items(ctx, &types.Empty{})
 			if err != nil {
 				return err
 			}
