@@ -2,6 +2,9 @@
 default: build
 LD_FLAGS=""
 BINARY_NAME=sample-grpc
+KNOWN_TYPES="github.com/gogo/protobuf/types"
+PROTO_TYPES="Mgoogle/protobuf/any.proto=$(KNOWN_TYPES),Mgoogle/protobuf/empty.proto=$(KNOWN_TYPES),Mgoogle/protobuf/duration.proto=$(KNOWN_TYPES),Mgoogle/protobuf/field_mask.proto=$(KNOWN_TYPES),Mgoogle/protobuf/struct.proto=$(KNOWN_TYPES),Mgoogle/protobuf/timestamp.proto=$(KNOWN_TYPES),Mgoogle/protobuf/wrappers.proto=$(KNOWN_TYPES)"
+PROTO_OUT = "Mgogoproto/gogo.proto=github.com/gogo/protobuf/gogoproto,$(PROTO_TYPES)"
 
 proto: ## Compile protocol files
 	@protoc \
@@ -11,25 +14,8 @@ proto: ## Compile protocol files
 	--proto_path=./vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 	--proto_path=./vendor \
 	--proto_path=. \
-	--gogofaster_out=\
-Mgogoproto/gogo.proto=github.com/gogo/protobuf/gogoproto,\
-Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/field_mask.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
-plugins=grpc:. \
-	--grpc-gateway_out=\
-Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/field_mask.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
-Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
-logtostderr=true:. \
+	--gogofaster_out=$(PROTO_OUT),plugins=grpc:. \
+	--grpc-gateway_out=$(PROTO_TYPES),logtostderr=true:. \
 	--swagger_out=logtostderr=true:. \
 	--descriptor_set_out=proto/service.desc \
 	proto/*.proto
